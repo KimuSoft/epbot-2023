@@ -1,0 +1,14 @@
+{
+  "rarityProbability": {
+    "Trash": 20,
+    "Common": 60,
+    "Rare": 15,
+    "Epic": 4,
+    "Legendary": 1
+  },
+
+  "eventProbability": {
+    "Idle": 80,
+    "Bite": 20
+  }
+}
