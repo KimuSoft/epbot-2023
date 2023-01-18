@@ -5,5 +5,33 @@
     "rarity": 1,
     "averagePrice": 1000,
     "averageLength": 147
+  },
+  {
+    "id": "kimjang2",
+    "name": "슈퍼킴장",
+    "rarity": 2,
+    "averagePrice": 1000,
+    "averageLength": 147
+  },
+  {
+    "id": "kimjang3",
+    "name": "울트라용용이",
+    "rarity": 3,
+    "averagePrice": 1000,
+    "averageLength": 147
+  },
+  {
+    "id": "kimjang4",
+    "name": "키므",
+    "rarity": 4,
+    "averagePrice": 1000,
+    "averageLength": 147
+  },
+  {
+    "id": "kimjang0",
+    "name": "용의 뿔",
+    "rarity": 0,
+    "averagePrice": 1000,
+    "averageLength": 147
   }
 ]

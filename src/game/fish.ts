@@ -1,16 +1,15 @@
 import { IFish, Rarity } from "../types/fish.type"
 import { Biome, Season, Weather } from "../types/models/epChannel.type"
 
-export default (require("../../asset/fish.json") as PartialFish[]).map(
-  (fish) => {
-    if (!fish.biomes) fish.biomes = []
-    if (!fish.weathers) fish.weathers = []
-    if (!fish.seasons) fish.seasons = []
-    if (!fish.standardDeviation) fish.standardDeviation = 0.2
+const fish = (require("../../asset/fish.json") as PartialFish[]).map((fish) => {
+  return {
+    standardDeviation: 0.2,
+    ...fish,
+    rarity: Rarity[fish.rarity] as unknown as Rarity,
+  } as IFish
+}) as IFish[]
 
-    return fish as IFish
-  }
-) as IFish[]
+export const findFishById = (id: string) => fish.find((f) => f.id === id)
 
 interface PartialFish {
   id: string
@@ -23,3 +22,5 @@ interface PartialFish {
   averageLength: number
   standardDeviation?: number
 }
+
+export default fish

@@ -1403,7 +1403,7 @@ __metadata:
     mongoose: ^6.8.4
     prettier: ^2.8.3
     ts-node: 10.9.1
-    tslog: 3
+    tslog: 3.3.4
     typescript: 4.8
   languageName: unknown
   linkType: soft
@@ -1963,7 +1963,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslog@npm:3":
+"tslog@npm:3.3.4":
   version: 3.3.4
   resolution: "tslog@npm:3.3.4"
   dependencies:

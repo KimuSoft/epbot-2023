@@ -11,6 +11,7 @@ import {
 import { redis } from "../index"
 import { getRandomTurn, TurnData } from "../services/fish.services"
 import { FishEventType } from "../types/fish.type"
+import { findFishById } from "../game/fish"
 
 class FishExtension extends Extension {
   @applicationCommand({
@@ -97,8 +98,11 @@ class FishExtension extends Extension {
       return i.update({ content: "낚시를 그만뒀다!", components: [] })
     }
 
+    console.log(session)
+
     // 물지 않았는데 누른 경우
-    if (session.event !== FishEventType.Bite) {
+    // @ts-ignore
+    if (FishEventType[session.event] !== FishEventType.Bite) {
       await redis.del(`ep:fish:${i.user.id}`)
       return i.update({ content: "아무 것도 낚이지 않았어...", components: [] })
     }
@@ -109,9 +113,11 @@ class FishExtension extends Extension {
       return i.update({ content: "물고기가 도망갔다...", components: [] })
     }
 
+    const fish = findFishById(session.fishId!)
+
     await redis.del(`ep:fish:${i.user.id}`)
     await i.update({
-      content: `낚시에 성공했다! ${session.fishId}을(를) 잡았다!`,
+      content: `낚시에 성공했다! ${fish?.name}을(를) 잡았다!`,
       components: [],
     })
   }

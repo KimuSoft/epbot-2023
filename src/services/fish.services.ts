@@ -10,9 +10,9 @@ import fishEvent, { IFishEvent } from "../game/fishEvent"
 export const getFishArray = (epChannel: EpChannelDocument): IFish[] =>
   fishData.filter(
     (f) =>
-      f.biomes.includes(epChannel.biome) &&
-      f.weathers.includes(epChannel.weather) &&
-      f.seasons.includes(epChannel.season)
+      (!f.biomes || f.biomes.includes(epChannel.biome)) &&
+      (!f.weathers || f.weathers.includes(epChannel.weather)) &&
+      (!f.seasons || f.seasons.includes(epChannel.season))
   )
 
 // 랜덤으로 물고기를 하나 반환합니다.
@@ -20,17 +20,19 @@ export const getRandomFish = (
   epChannel: EpChannelDocument
 ): IFish | undefined => {
   const rarity = pmfChoice(recordToPmfObject(gameRule.rarityProbability)).value
-  const fishArray = getFishArray(epChannel).filter((f) => f.rarity >= rarity)
+  const fishArray = getFishArray(epChannel).filter((f) => f.rarity === rarity)
 
   const fish = _.sample(fishArray.filter((f) => f.rarity === rarity))
-  if (!fish) throw new Error("No fish found")
+  if (!fish) throw new Error(`No ${rarity} Fish`)
 
   return fish
 }
 
 // TODO: 이벤트 조건 추가
 export const getRandomFishEvent = (eventType: FishEventType): IFishEvent => {
-  return _.sample(fishEvent.filter((e) => e.type === eventType))!
+  const ev = _.sample(fishEvent.filter((e) => e.type === eventType))
+  if (!ev) throw new Error("No Event")
+  return ev
 }
 
 // 랜덤한 이벤트 종류를 반환합니다.
@@ -40,6 +42,7 @@ export const getRandomTurn = (epChannel: EpChannelDocument): TurnData => {
   ).value
   const event = getRandomFishEvent(eventType)
 
+  console.log(event)
   return {
     event: eventType,
     fishId:
