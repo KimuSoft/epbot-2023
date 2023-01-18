@@ -54,7 +54,6 @@ class FishExtension extends Extension {
     })
 
     while (true) {
-      console.log("루프 1")
       await new Promise((resolve) =>
         setTimeout(resolve, 1000 * (Math.random() * 3 + 1) + i.client.ws.ping)
       )

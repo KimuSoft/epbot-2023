@@ -33,6 +33,12 @@ class SystemExtension extends Extension {
     await cts.getApplicationCommandsExtension()!.sync()
     await i.editReply("명령어를 전부 동기화했어요!")
   }
+
+  @listener({ event: "applicationCommandInvokeError", emitter: "cts" })
+  async onError(e: Error) {
+    await undefined
+    this.logger.error(e)
+  }
 }
 
 export const setup = async () => {
